@@ -1,4 +1,5 @@
-require("dotenv").config();
+// Load server/.env no matter which directory the process was started from.
+require("dotenv").config({ path: require("path").join(__dirname, "..", "..", ".env") });
 
 const env = {
   nodeEnv: process.env.NODE_ENV || "development",
