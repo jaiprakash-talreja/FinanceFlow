@@ -1,0 +1,25 @@
+# Render Blueprint for the backend API.
+# Render dashboard -> New -> Blueprint -> pick this repo.
+services:
+  - type: web
+    name: financeflow-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/server.js
+    healthCheckPath: /api/health
+    plan: free
+    autoDeploy: false # deploys are triggered by GitHub Actions after tests pass
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: MONGODB_URI
+        sync: false # set in the dashboard (MongoDB Atlas connection string)
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: CLIENT_URL
+        sync: false # your Vercel URL, e.g. https://financeflow.vercel.app
