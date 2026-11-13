@@ -57,30 +57,30 @@ export default function ChatThread({ messages, loading, conversationId, toUserId
   return (
     <div className="flex h-full min-h-0 flex-col">
       <div className="flex-1 space-y-3 overflow-y-auto p-4 sm:p-5">
-        {loading && <div className="flex justify-center py-10"><Spinner className="h-6 w-6 text-brand-600" /></div>}
-        {!loading && messages.length === 0 && <p className="py-10 text-center text-sm text-slate-500">No messages yet. Say hello 👋</p>}
+        {loading && <div className="flex justify-center py-10"><Spinner className="h-6 w-6 text-brand-500" /></div>}
+        {!loading && messages.length === 0 && <p className="py-10 text-center text-sm text-muted">No messages yet. Say hello 👋</p>}
         {messages.map((m) => {
           const mine = String(m.sender?._id) === String(meId);
           return (
             <div key={m._id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm shadow-sm ${mine
-                ? "rounded-br-md bg-brand-600 text-white"
-                : "rounded-bl-md bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-100"}`}>
-                {!mine && <p className="mb-0.5 text-xs font-semibold opacity-70">{m.fromAdmin ? "Support" : m.sender?.name}</p>}
+                ? "rounded-br-md bg-ink text-paper shadow-clay-sm"
+                : "rounded-bl-md bg-slate-100 text-ink ring-1 ring-line/60 dark:bg-slate-800"}`}>
+                {!mine && <p className="mb-0.5 text-xs font-medium opacity-70">{m.fromAdmin ? "Support" : m.sender?.name}</p>}
                 <p className="whitespace-pre-wrap break-words">{m.text}</p>
-                <p className={`mt-1 text-[10px] ${mine ? "text-brand-100" : "text-slate-400"}`}>{timeAgo(m.createdAt)}</p>
+                <p className={`mt-1 text-[10px] ${mine ? "text-paper/50" : "text-slate-400"}`}>{timeAgo(m.createdAt)}</p>
               </div>
             </div>
           );
         })}
-        {typing && <p className="animate-pulse text-xs text-slate-500">{typingLabel} is typing…</p>}
+        {typing && <p className="animate-pulse text-xs text-muted">{typingLabel} is typing…</p>}
         <div ref={bottom} />
       </div>
-      <form onSubmit={send} className="flex gap-2 border-t border-slate-100 p-3 dark:border-slate-800">
+      <form onSubmit={send} className="flex gap-2 border-t border-line/70 p-3">
         <input value={text} onChange={onChange} maxLength={1000} placeholder={connected ? "Type a message…" : "Connecting…"} disabled={!connected}
           className="field flex-1" aria-label="Message" />
         <button type="submit" disabled={!text.trim() || sending || !connected} aria-label="Send"
-          className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-600 text-white transition hover:bg-brand-700 disabled:opacity-50">
+          className="grid h-[46px] w-[46px] shrink-0 place-items-center rounded-clay bg-brand-500 text-[#14130f] shadow-clay transition hover:bg-brand-400 disabled:opacity-40 disabled:shadow-none">
           {sending ? <Spinner className="h-4 w-4" /> : <SendHorizontal className="h-4 w-4" />}
         </button>
       </form>

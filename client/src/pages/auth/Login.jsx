@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LogIn } from "lucide-react";
 import AuthShell from "./AuthShell";
 import Button from "../../components/ui/Button";
 import { Input } from "../../components/ui/Field";
@@ -35,17 +34,19 @@ export default function Login() {
   const onSubmit = (e) => submit(e).catch((err) => setFormError(err.message));
 
   return (
-    <AuthShell title="Log in" subtitle="Good to see you again."
-      footer={<>New here? <Link to="/register" className="font-semibold text-brand-600 hover:underline dark:text-brand-400">Create an account</Link></>}>
+    <AuthShell title="Welcome back." subtitle="Log in to see where your money is going."
+      footer={<>New here? <Link to="/register" className="link">Create an account</Link></>}>
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
-        {formError && <div className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/50 dark:text-rose-300" role="alert">{formError}</div>}
+        {formError && <div className="rounded-xl bg-brand-50 px-3.5 py-2.5 text-sm text-brand-800 ring-1 ring-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:ring-brand-500/30" role="alert">{formError}</div>}
         <Input label="Email" name="email" type="email" autoComplete="email" value={values.email} onChange={onChange} error={errors.email} />
         <Input label="Password" name="password" type="password" autoComplete="current-password" value={values.password} onChange={onChange} error={errors.password} />
-        <Button type="submit" className="w-full" size="lg" loading={submitting} icon={LogIn}>Log in</Button>
+        <Button type="submit" className="w-full" size="lg" loading={submitting}>Log in</Button>
       </form>
 
-      <div className="mt-6 rounded-xl border border-dashed border-slate-300 p-3 dark:border-slate-700">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Try a demo account</p>
+      <div className="mt-8">
+        <div className="mb-3 flex items-center gap-3 text-xs text-muted">
+          <span className="h-px flex-1 bg-line" />or try a demo account<span className="h-px flex-1 bg-line" />
+        </div>
         <div className="flex gap-2">
           {DEMO.map((d) => (
             <Button key={d.email} type="button" variant="secondary" size="sm" className="flex-1"

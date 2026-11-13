@@ -54,8 +54,8 @@ export default function AdminOverview() {
           </form>
         </Card>
         <Card title="Access control">
-          <div className="flex gap-3 text-sm text-slate-600 dark:text-slate-400">
-            <ShieldCheck className="h-5 w-5 shrink-0 text-brand-600" />
+          <div className="flex gap-3 text-sm text-muted">
+            <ShieldCheck className="h-5 w-5 shrink-0 text-brand-500" />
             <div className="space-y-2">
               <p>Admin routes are protected twice: the React router hides admin pages from normal users, and the API checks the role from the verified JWT on every <code className="rounded bg-slate-100 px-1 dark:bg-slate-800">/api/admin/*</code> request (403 otherwise).</p>
               <p>Deactivating a user invalidates their tokens immediately and closes their live connections.</p>

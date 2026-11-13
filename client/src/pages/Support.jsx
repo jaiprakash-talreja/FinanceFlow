@@ -15,12 +15,12 @@ export default function Support() {
   return (
     <>
       <PageHeader title="Support chat" subtitle="Questions about the app? Chat live with our team." />
-      <div className="flex h-[calc(100vh-15rem)] min-h-[420px] flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card dark:border-slate-800 dark:bg-slate-900">
-        <div className="flex items-center gap-3 border-b border-slate-100 px-5 py-3 dark:border-slate-800">
+      <div className="flex h-[calc(100dvh-16.5rem)] min-h-[420px] flex-col overflow-hidden surface">
+        <div className="flex items-center gap-3 border-b border-line/70 px-5 py-3">
           <span className="grid h-9 w-9 place-items-center rounded-full bg-brand-50 text-brand-600 dark:bg-brand-500/10"><Headset className="h-5 w-5" /></span>
           <div>
-            <p className="text-sm font-semibold">FinanceFlow Support</p>
-            <p className="text-xs text-slate-500">Usually replies within a few minutes</p>
+            <p className="text-sm font-medium">FinanceFlow Support</p>
+            <p className="text-xs text-muted">Usually replies within a few minutes</p>
           </div>
         </div>
         <ChatThread messages={thread.data || []} loading={thread.loading} conversationId={user._id} meId={user._id} typingLabel="Support" onMessage={append} />

@@ -50,13 +50,13 @@ export default function Profile() {
       <div className="grid gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-1">
           <div className="flex flex-col items-center text-center">
-            <div className="grid h-20 w-20 place-items-center rounded-full bg-brand-600 text-3xl font-bold text-white">{user.name[0]?.toUpperCase()}</div>
-            <p className="mt-3 text-lg font-semibold">{user.name}</p>
-            <p className="text-sm text-slate-500">{user.email}</p>
+            <div className="grid h-20 w-20 place-items-center rounded-[26px] bg-ink font-serif-display text-4xl text-paper shadow-clay">{user.name[0]?.toUpperCase()}</div>
+            <p className="mt-4 font-serif-display text-2xl">{user.name}</p>
+            <p className="text-sm text-muted">{user.email}</p>
             <div className="mt-3"><Badge color={user.role === "admin" ? "violet" : "green"}>{user.role}</Badge></div>
-            <dl className="mt-6 w-full space-y-2 border-t border-slate-100 pt-4 text-sm dark:border-slate-800">
-              <div className="flex justify-between"><dt className="text-slate-500">Member since</dt><dd className="font-medium">{shortDate(user.createdAt)}</dd></div>
-              {user.lastLoginAt && <div className="flex justify-between"><dt className="text-slate-500">Last login</dt><dd className="font-medium">{shortDate(user.lastLoginAt)}</dd></div>}
+            <dl className="mt-6 w-full space-y-2 border-t border-line/70 pt-4 text-sm">
+              <div className="flex justify-between"><dt className="text-muted">Member since</dt><dd className="font-medium">{shortDate(user.createdAt)}</dd></div>
+              {user.lastLoginAt && <div className="flex justify-between"><dt className="text-muted">Last login</dt><dd className="font-medium">{shortDate(user.lastLoginAt)}</dd></div>}
             </dl>
           </div>
         </Card>
@@ -75,7 +75,7 @@ export default function Profile() {
 
           <Card title="Change password">
             <form onSubmit={changePassword} className="grid gap-4 sm:grid-cols-2" noValidate>
-              {pwError && <p className="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:bg-rose-950/50 dark:text-rose-300 sm:col-span-2" role="alert">{pwError}</p>}
+              {pwError && <p className="rounded-xl bg-brand-50 px-3.5 py-2.5 text-sm text-brand-800 ring-1 ring-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:ring-brand-500/30 sm:col-span-2" role="alert">{pwError}</p>}
               <Input className="sm:col-span-2" label="Current password" name="currentPassword" type="password" autoComplete="current-password" value={pw.values.currentPassword} onChange={pw.onChange} error={pw.errors.currentPassword} />
               <Input label="New password" name="newPassword" type="password" autoComplete="new-password" value={pw.values.newPassword} onChange={pw.onChange} error={pw.errors.newPassword} />
               <Input label="Confirm new password" name="confirm" type="password" autoComplete="new-password" value={pw.values.confirm} onChange={pw.onChange} error={pw.errors.confirm} />

@@ -1,12 +1,12 @@
 import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
-import { CheckCircle2, Info, X, XCircle } from "lucide-react";
+import { Check, Info, X } from "lucide-react";
 
 const ToastContext = createContext(null);
 
 const STYLES = {
-  success: { icon: CheckCircle2, cls: "text-brand-600 dark:text-brand-400" },
-  error: { icon: XCircle, cls: "text-rose-600 dark:text-rose-400" },
-  info: { icon: Info, cls: "text-sky-600 dark:text-sky-400" },
+  success: { icon: Check, cls: "bg-pos-500 text-white" },
+  error: { icon: X, cls: "bg-brand-500 text-[#14130f]" },
+  info: { icon: Info, cls: "bg-ink text-paper" },
 };
 
 export function ToastProvider({ children }) {
@@ -30,18 +30,18 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={toast}>
       {children}
-      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex flex-col items-center gap-2 p-4 sm:items-end">
+      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex flex-col items-center gap-2 p-4 sm:items-end sm:p-6">
         {toasts.map(({ id, type, title, message }) => {
           const { icon: Icon, cls } = STYLES[type];
           return (
             <div key={id} role="status"
-              className="pointer-events-auto flex w-full max-w-sm animate-slide-in items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-lg dark:border-slate-800 dark:bg-slate-900">
-              <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${cls}`} />
+              className="pointer-events-auto flex w-full max-w-sm animate-slide-in items-start gap-3 rounded-2xl border border-line/70 bg-card p-4 shadow-lift">
+              <span className={`mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full shadow-clay-sm ${cls}`}><Icon className="h-3.5 w-3.5" strokeWidth={2.5} /></span>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold">{title}</p>
-                {message && <p className="mt-0.5 text-sm text-slate-600 dark:text-slate-400">{message}</p>}
+                <p className="text-sm font-medium">{title}</p>
+                {message && <p className="mt-0.5 text-[13px] leading-snug text-muted">{message}</p>}
               </div>
-              <button onClick={() => dismiss(id)} className="rounded p-0.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200" aria-label="Dismiss">
+              <button onClick={() => dismiss(id)} className="rounded-md p-0.5 text-slate-400 transition hover:text-ink" aria-label="Dismiss">
                 <X className="h-4 w-4" />
               </button>
             </div>

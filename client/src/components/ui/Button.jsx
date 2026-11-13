@@ -1,29 +1,30 @@
 import Spinner from "./Spinner";
 
 const VARIANTS = {
-  primary: "bg-brand-600 text-white hover:bg-brand-700 focus-visible:ring-brand-500 shadow-sm",
-  secondary: "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus-visible:ring-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800",
-  danger: "bg-rose-600 text-white hover:bg-rose-700 focus-visible:ring-rose-500 shadow-sm",
-  ghost: "text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-slate-400 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white",
+  // Orange clay button with dark text
+  primary: "bg-brand-500 text-[#14130f] shadow-clay hover:bg-brand-400 focus-visible:ring-brand-500/40",
+  secondary: "bg-card text-ink shadow-clay-sm ring-1 ring-line hover:bg-slate-100 focus-visible:ring-slate-400/40 dark:hover:bg-slate-800",
+  danger: "bg-brand-700 text-white shadow-clay hover:bg-brand-800 focus-visible:ring-brand-700/40",
+  ghost: "text-muted hover:bg-slate-200/50 hover:text-ink focus-visible:ring-slate-400/40 dark:hover:bg-slate-800",
 };
 
 const SIZES = {
-  sm: "h-8 px-3 text-xs gap-1.5",
-  md: "h-10 px-4 text-sm gap-2",
-  lg: "h-11 px-5 text-sm gap-2",
-  icon: "h-9 w-9 justify-center",
+  sm: "h-8 px-3 text-[13px] gap-1.5 rounded-[10px]",
+  md: "h-10 px-4 text-sm gap-2 rounded-clay",
+  lg: "h-12 px-6 text-[15px] gap-2 rounded-clay",
+  icon: "h-9 w-9 justify-center rounded-[10px]",
 };
 
 export default function Button({ variant = "primary", size = "md", loading = false, icon: Icon, className = "", children, disabled, ...props }) {
   return (
     <button
-      className={`inline-flex items-center justify-center rounded-lg font-semibold transition duration-150
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950
-        disabled:cursor-not-allowed disabled:opacity-60 active:scale-[0.98] ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
+      className={`inline-flex select-none items-center justify-center font-medium transition duration-200 ease-soft
+        focus-visible:outline-none focus-visible:ring-4 active:translate-y-px active:shadow-none
+        disabled:pointer-events-none disabled:opacity-50 ${VARIANTS[variant]} ${SIZES[size]} ${className}`}
       disabled={disabled || loading}
       {...props}
     >
-      {loading ? <Spinner className="h-4 w-4" /> : Icon && <Icon className="h-4 w-4 shrink-0" />}
+      {loading ? <Spinner className="h-4 w-4" /> : Icon && <Icon className="h-4 w-4 shrink-0" strokeWidth={2} />}
       {children}
     </button>
   );
