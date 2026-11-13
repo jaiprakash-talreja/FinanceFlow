@@ -37,24 +37,24 @@ export default function AdminSupport() {
   return (
     <>
       <PageHeader title="Support inbox" subtitle="Reply to users in real time." />
-      <div className="grid h-[calc(100vh-15rem)] min-h-[460px] overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-card dark:border-slate-800 dark:bg-slate-900 md:grid-cols-[300px_1fr]">
-        <aside className={`min-h-0 overflow-y-auto border-slate-100 dark:border-slate-800 md:block md:border-r ${active ? "hidden" : "block"}`}>
-          {convs.loading ? <div className="flex justify-center py-10"><Spinner className="h-6 w-6 text-brand-600" /></div>
+      <div className="grid h-[calc(100dvh-16.5rem)] min-h-[460px] overflow-hidden surface md:grid-cols-[300px_1fr]">
+        <aside className={`min-h-0 overflow-y-auto border-line/70 md:block md:border-r ${active ? "hidden" : "block"}`}>
+          {convs.loading ? <div className="flex justify-center py-10"><Spinner className="h-6 w-6 text-brand-500" /></div>
             : !convs.data?.length ? <EmptyState icon={MessagesSquare} title="No conversations yet" message="Messages from users will appear here live." />
             : (
               <ul>
                 {convs.data.map((c) => (
                   <li key={c._id}>
-                    <button onClick={() => open(c)} className={`flex w-full items-start gap-3 border-b border-slate-100 px-4 py-3 text-left transition hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800/50 ${active?._id === c._id ? "bg-brand-50/70 dark:bg-brand-500/10" : ""}`}>
-                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-200 text-sm font-semibold dark:bg-slate-700">{c.user.name[0]}</span>
+                    <button onClick={() => open(c)} className={`flex w-full items-start gap-3 border-b border-line/70 px-4 py-3 text-left transition hover:bg-slate-100/60 dark:hover:bg-slate-800/50 ${active?._id === c._id ? "bg-slate-100 dark:bg-slate-800/70" : ""}`}>
+                      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-slate-200/70 font-serif-display text-base dark:bg-slate-800">{c.user.name[0]}</span>
                       <span className="min-w-0 flex-1">
                         <span className="flex items-center justify-between gap-2">
-                          <span className="truncate text-sm font-semibold">{c.user.name}</span>
+                          <span className="truncate text-sm font-medium">{c.user.name}</span>
                           <span className="shrink-0 text-[11px] text-slate-400">{timeAgo(c.lastAt)}</span>
                         </span>
                         <span className="flex items-center gap-2">
-                          <span className="truncate text-xs text-slate-500">{c.fromAdmin ? "You: " : ""}{c.lastMessage}</span>
-                          {unread[c._id] > 0 && <span className="ml-auto grid h-5 min-w-[20px] place-items-center rounded-full bg-brand-600 px-1 text-[10px] font-bold text-white">{unread[c._id]}</span>}
+                          <span className="truncate text-xs text-muted">{c.fromAdmin ? "You: " : ""}{c.lastMessage}</span>
+                          {unread[c._id] > 0 && <span className="ml-auto grid h-5 min-w-[20px] place-items-center rounded-full bg-brand-500 px-1 text-[10px] font-medium text-[#14130f]">{unread[c._id]}</span>}
                         </span>
                       </span>
                     </button>
@@ -67,11 +67,11 @@ export default function AdminSupport() {
         <section className={`min-h-0 flex-col ${active ? "flex" : "hidden md:flex"}`}>
           {active ? (
             <>
-              <div className="flex items-center gap-3 border-b border-slate-100 px-4 py-3 dark:border-slate-800">
-                <button onClick={() => setActive(null)} className="rounded-md p-1 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 md:hidden" aria-label="Back"><ArrowLeft className="h-5 w-5" /></button>
+              <div className="flex items-center gap-3 border-b border-line/70 px-4 py-3">
+                <button onClick={() => setActive(null)} className="rounded-md p-1 text-muted hover:bg-slate-100 dark:hover:bg-slate-800 md:hidden" aria-label="Back"><ArrowLeft className="h-5 w-5" /></button>
                 <div>
-                  <p className="text-sm font-semibold">{active.name}</p>
-                  <p className="text-xs text-slate-500">{active.email}</p>
+                  <p className="text-sm font-medium">{active.name}</p>
+                  <p className="text-xs text-muted">{active.email}</p>
                 </div>
               </div>
               <div className="min-h-0 flex-1">

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserPlus } from "lucide-react";
 import AuthShell from "./AuthShell";
 import Button from "../../components/ui/Button";
 import { Input } from "../../components/ui/Field";
@@ -33,15 +32,15 @@ export default function Register() {
     })(e).catch((err) => setFormError(err.message));
 
   return (
-    <AuthShell title="Create your account" subtitle="Free forever. Takes less than a minute."
-      footer={<>Already have an account? <Link to="/login" className="font-semibold text-brand-600 hover:underline dark:text-brand-400">Log in</Link></>}>
+    <AuthShell title="Start tracking." subtitle="Create a free account in under a minute."
+      footer={<>Already have an account? <Link to="/login" className="link">Log in</Link></>}>
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
-        {formError && <div className="rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/50 dark:text-rose-300" role="alert">{formError}</div>}
+        {formError && <div className="rounded-xl bg-brand-50 px-3.5 py-2.5 text-sm text-brand-800 ring-1 ring-brand-200 dark:bg-brand-500/10 dark:text-brand-300 dark:ring-brand-500/30" role="alert">{formError}</div>}
         <Input label="Full name" name="name" autoComplete="name" value={values.name} onChange={onChange} error={errors.name} />
         <Input label="Email" name="email" type="email" autoComplete="email" value={values.email} onChange={onChange} error={errors.email} />
         <Input label="Password" name="password" type="password" autoComplete="new-password" value={values.password} onChange={onChange} error={errors.password} hint="At least 8 characters with a number" />
         <Input label="Confirm password" name="confirm" type="password" autoComplete="new-password" value={values.confirm} onChange={onChange} error={errors.confirm} />
-        <Button type="submit" className="w-full" size="lg" loading={submitting} icon={UserPlus}>Create account</Button>
+        <Button type="submit" className="w-full" size="lg" loading={submitting}>Create account</Button>
       </form>
     </AuthShell>
   );

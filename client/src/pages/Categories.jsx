@@ -14,7 +14,7 @@ import { api } from "../lib/api";
 import { rules } from "../lib/validators";
 import { useToast } from "../context/ToastContext";
 
-const COLORS = ["#10b985", "#0d9488", "#3b82f6", "#6366f1", "#a855f7", "#ec4899", "#ef4444", "#f97316", "#eab308", "#64748b"];
+const COLORS = ["#ff5f2e", "#8a8577", "#4f8a63", "#6f9c8a", "#6b7fa3", "#5f9a9a", "#a87892", "#c46a5a", "#d9a441", "#a29d90"];
 const ICONS = ["🍔", "🏠", "🚌", "🛍️", "💡", "💊", "🎬", "📚", "✈️", "🎁", "💼", "💻", "📈", "🐶", "☕", "🏷️"];
 
 function CategoryModal({ open, onClose, editing, onSaved }) {
@@ -73,14 +73,14 @@ function CategoryList({ title, items, onEdit, onDelete }) {
   return (
     <Card title={title} bodyClass="p-0">
       {items.length === 0 ? <EmptyState title="Nothing here yet" /> : (
-        <ul className="divide-y divide-slate-100 dark:divide-slate-800">
+        <ul className="divide-y divide-line/70">
           {items.map((c) => (
             <li key={c._id} className="flex items-center gap-3 px-5 py-3">
               <span className="grid h-9 w-9 place-items-center rounded-lg text-base" style={{ background: `${c.color}22` }}>{c.icon}</span>
               <span className="flex-1 font-medium">{c.name}</span>
               <span className="h-3 w-3 rounded-full" style={{ background: c.color }} />
               <Button variant="ghost" size="icon" onClick={() => onEdit(c)} aria-label={`Edit ${c.name}`}><Pencil className="h-4 w-4" /></Button>
-              <Button variant="ghost" size="icon" onClick={() => onDelete(c)} aria-label={`Delete ${c.name}`} className="hover:!text-rose-600"><Trash2 className="h-4 w-4" /></Button>
+              <Button variant="ghost" size="icon" onClick={() => onDelete(c)} aria-label={`Delete ${c.name}`} className="hover:!text-brand-600"><Trash2 className="h-4 w-4" /></Button>
             </li>
           ))}
         </ul>

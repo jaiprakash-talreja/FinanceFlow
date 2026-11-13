@@ -57,7 +57,7 @@ export default function AdminUsers() {
     <>
       <PageHeader title="Users" subtitle="Manage roles and access for everyone on the platform." />
       <Card bodyClass="p-0">
-        <div className="flex flex-col gap-3 border-b border-slate-100 p-4 dark:border-slate-800 sm:flex-row">
+        <div className="flex flex-col gap-3 border-b border-line/70 p-4 sm:flex-row">
           <div className="relative flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search name or email…" aria-label="Search users" className="field pl-9" />
@@ -69,19 +69,19 @@ export default function AdminUsers() {
           </Select>
         </div>
 
-        {users.loading && !users.data ? <div className="flex justify-center py-16"><Spinner className="h-7 w-7 text-brand-600" /></div>
+        {users.loading && !users.data ? <div className="flex justify-center py-16"><Spinner className="h-7 w-7 text-brand-500" /></div>
           : users.error ? <ErrorState error={users.error} onRetry={users.refetch} />
           : users.data.items.length === 0 ? <EmptyState title="No users match" />
           : (
             <>
-              <ul className="divide-y divide-slate-100 dark:divide-slate-800">
+              <ul className="divide-y divide-line/70">
                 {users.data.items.map((u) => {
                   const self = u._id === me._id;
                   return (
                     <li key={u._id} className="flex flex-col gap-3 px-5 py-4 md:flex-row md:items-center">
                       <div className="flex min-w-0 flex-1 items-center gap-3">
                         <div className="relative">
-                          <div className="grid h-10 w-10 place-items-center rounded-full bg-slate-200 font-semibold text-slate-700 dark:bg-slate-700 dark:text-slate-200">{u.name[0]?.toUpperCase()}</div>
+                          <div className="grid h-10 w-10 place-items-center rounded-xl bg-slate-200/70 font-serif-display text-lg text-ink dark:bg-slate-800">{u.name[0]?.toUpperCase()}</div>
                           <span className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-white dark:border-slate-900 ${u.online ? "bg-brand-500" : "bg-slate-300 dark:bg-slate-600"}`} title={u.online ? "Online" : "Offline"} />
                         </div>
                         <div className="min-w-0">
@@ -90,7 +90,7 @@ export default function AdminUsers() {
                             <Badge color={u.role === "admin" ? "violet" : "slate"}>{u.role}</Badge>
                             {!u.isActive && <Badge color="red">deactivated</Badge>}
                           </p>
-                          <p className="truncate text-sm text-slate-500">{u.email} · joined {shortDate(u.createdAt)}</p>
+                          <p className="truncate text-sm text-muted">{u.email} · joined {shortDate(u.createdAt)}</p>
                         </div>
                       </div>
                       {!self && (
@@ -103,16 +103,16 @@ export default function AdminUsers() {
                             onClick={() => update(u, { isActive: !u.isActive }, u.isActive ? "User deactivated" : "User reactivated")}>
                             {u.isActive ? "Deactivate" : "Activate"}
                           </Button>
-                          <Button size="sm" variant="ghost" icon={Trash2} onClick={() => remover.open(u)} className="hover:!text-rose-600">Delete</Button>
+                          <Button size="sm" variant="ghost" icon={Trash2} onClick={() => remover.open(u)} className="hover:!text-brand-600">Delete</Button>
                         </div>
                       )}
                     </li>
                   );
                 })}
               </ul>
-              <div className="border-t border-slate-100 p-4 dark:border-slate-800">
+              <div className="border-t border-line/70 p-4">
                 <Pagination page={users.data.page} pages={users.data.pages} onChange={setPage} />
-                {users.data.pages <= 1 && <p className="text-sm text-slate-500">{users.data.total} user(s)</p>}
+                {users.data.pages <= 1 && <p className="text-sm text-muted">{users.data.total} user(s)</p>}
               </div>
             </>
           )}

@@ -74,16 +74,16 @@ export default function Budgets() {
         </>} />
 
       {budgets.loading ? <PageLoader /> : budgets.error ? <ErrorState error={budgets.error} onRetry={budgets.refetch} /> : budgets.data.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+        <div className="rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
           <EmptyState icon={PiggyBank} title={`No budgets for ${monthLabel(month)}`} message="Create a budget for a category such as Food or Shopping."
             action={<Button icon={Plus} onClick={() => editor.open()}>Create budget</Button>} />
         </div>
       ) : (
         <>
-          <div className="mb-6 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-card dark:border-slate-800 dark:bg-slate-900">
+          <div className="mb-6 surface p-5 sm:p-6">
             <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-              <p className="text-sm font-medium text-slate-500">Total budgeted for {monthLabel(month)}</p>
-              <p className="text-sm tabular-nums"><span className="text-lg font-bold">{money(totalSpent)}</span> <span className="text-slate-500">of {money(totalLimit)}</span></p>
+              <p className="text-sm font-medium text-muted">Total budgeted for {monthLabel(month)}</p>
+              <p className="text-sm tabular-nums"><span className="font-serif-display text-2xl">{money(totalSpent)}</span> <span className="text-muted">of {money(totalLimit)}</span></p>
             </div>
             <ProgressBar value={totalSpent} max={totalLimit} />
           </div>
@@ -93,25 +93,25 @@ export default function Budgets() {
               const pct = Math.round((b.spent / b.limit) * 100);
               const left = b.limit - b.spent;
               return (
-                <div key={b._id} className="group rounded-2xl border border-slate-200/80 bg-white p-5 shadow-card transition hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
+                <div key={b._id} className="surface group p-5 transition duration-300 ease-soft hover:-translate-y-0.5 hover:shadow-lift sm:p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <span className="grid h-10 w-10 place-items-center rounded-xl text-lg" style={{ background: `${b.category?.color}1f` }}>{b.category?.icon}</span>
                       <div>
-                        <p className="font-semibold">{b.category?.name}</p>
-                        <p className="text-xs text-slate-500">Limit {money(b.limit)}</p>
+                        <p className="font-medium">{b.category?.name}</p>
+                        <p className="text-xs text-muted">Limit {money(b.limit)}</p>
                       </div>
                     </div>
                     <Badge color={pct >= 100 ? "red" : pct >= 80 ? "amber" : "green"}>{pct}%</Badge>
                   </div>
                   <div className="mt-4"><ProgressBar value={b.spent} max={b.limit} /></div>
                   <div className="mt-3 flex items-center justify-between text-sm">
-                    <span className="tabular-nums text-slate-600 dark:text-slate-400">{money(b.spent)} spent</span>
-                    <span className={`font-medium tabular-nums ${left < 0 ? "text-rose-600" : "text-slate-500"}`}>{left < 0 ? `${money(-left)} over` : `${money(left)} left`}</span>
+                    <span className="tabular-nums text-muted">{money(b.spent)} spent</span>
+                    <span className={`font-medium tabular-nums ${left < 0 ? "text-brand-600" : "text-muted"}`}>{left < 0 ? `${money(-left)} over` : `${money(left)} left`}</span>
                   </div>
                   <div className="mt-3 flex justify-end gap-1 opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
                     <Button variant="ghost" size="sm" icon={Pencil} onClick={() => editor.open(b)}>Edit</Button>
-                    <Button variant="ghost" size="sm" icon={Trash2} onClick={() => remover.open(b)} className="hover:!text-rose-600">Delete</Button>
+                    <Button variant="ghost" size="sm" icon={Trash2} onClick={() => remover.open(b)} className="hover:!text-brand-600">Delete</Button>
                   </div>
                 </div>
               );

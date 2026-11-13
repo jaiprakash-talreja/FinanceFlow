@@ -50,7 +50,7 @@ export default function Transactions() {
         actions={<Button icon={Plus} onClick={() => editor.open()}>Add transaction</Button>} />
 
       <Card bodyClass="p-0">
-        <div className="flex flex-col gap-3 border-b border-slate-100 p-4 dark:border-slate-800 sm:flex-row sm:items-center">
+        <div className="flex flex-col gap-3 border-b border-line/70 p-4 sm:flex-row sm:items-center">
           <div className="relative flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
             <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search notes…" aria-label="Search transactions" className="field pl-9" />
@@ -70,7 +70,7 @@ export default function Transactions() {
         </div>
 
         {showFilters && (
-          <div className="grid animate-fade-in gap-3 border-b border-slate-100 bg-slate-50/60 p-4 dark:border-slate-800 dark:bg-slate-900/40 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid animate-fade-in gap-3 border-b border-line/70 bg-slate-50/60 p-4 dark:bg-slate-900/40 sm:grid-cols-2 lg:grid-cols-5">
             <Select label="Type" name="type" value={filters.type} onChange={setFilter}>
               <option value="">All</option>
               <option value="income">Income</option>
@@ -89,7 +89,7 @@ export default function Transactions() {
         )}
 
         {list.loading && !data ? (
-          <div className="flex justify-center py-16"><Spinner className="h-7 w-7 text-brand-600" /></div>
+          <div className="flex justify-center py-16"><Spinner className="h-7 w-7 text-brand-500" /></div>
         ) : list.error ? (
           <ErrorState error={list.error} onRetry={list.refetch} />
         ) : data.items.length === 0 ? (
@@ -99,7 +99,7 @@ export default function Transactions() {
             {/* Table on tablet/desktop */}
             <div className="hidden overflow-x-auto md:block">
               <table className="w-full text-sm">
-                <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 dark:bg-slate-800/40">
+                <thead className="text-left text-[11px] font-medium uppercase tracking-[0.12em] text-muted">
                   <tr>
                     <th className="px-5 py-3">Date</th>
                     <th className="px-5 py-3">Category</th>
@@ -109,19 +109,19 @@ export default function Transactions() {
                     <th className="px-5 py-3"><span className="sr-only">Actions</span></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                <tbody className="divide-y divide-line/70">
                   {data.items.map((t) => (
-                    <tr key={t._id} className="transition hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                      <td className="whitespace-nowrap px-5 py-3 text-slate-500">{shortDate(t.date)}</td>
+                    <tr key={t._id} className="transition hover:bg-slate-100/60 dark:hover:bg-slate-800/40">
+                      <td className="whitespace-nowrap px-5 py-3 text-muted">{shortDate(t.date)}</td>
                       <td className="px-5 py-3"><span className="inline-flex items-center gap-2 font-medium"><span className="h-2 w-2 rounded-full" style={{ background: t.category?.color }} />{t.category?.icon} {t.category?.name}</span></td>
-                      <td className="max-w-xs truncate px-5 py-3 text-slate-600 dark:text-slate-400">{t.note || "—"}</td>
-                      <td className="px-5 py-3 uppercase text-slate-500">{t.paymentMethod}</td>
-                      <td className={`whitespace-nowrap px-5 py-3 text-right font-semibold tabular-nums ${t.type === "income" ? "text-brand-600 dark:text-brand-400" : "text-rose-600 dark:text-rose-400"}`}>
+                      <td className="max-w-xs truncate px-5 py-3 text-muted">{t.note || "—"}</td>
+                      <td className="px-5 py-3 uppercase text-muted">{t.paymentMethod}</td>
+                      <td className={`whitespace-nowrap px-5 py-3 text-right font-medium tabular-nums ${t.type === "income" ? "text-pos-600 dark:text-pos-400" : "text-ink"}`}>
                         {t.type === "income" ? "+" : "−"}{money(t.amount)}
                       </td>
                       <td className="whitespace-nowrap px-5 py-3 text-right">
                         <Button variant="ghost" size="icon" onClick={() => editor.open(t)} aria-label="Edit"><Pencil className="h-4 w-4" /></Button>
-                        <Button variant="ghost" size="icon" onClick={() => remover.open(t)} aria-label="Delete" className="hover:!text-rose-600"><Trash2 className="h-4 w-4" /></Button>
+                        <Button variant="ghost" size="icon" onClick={() => remover.open(t)} aria-label="Delete" className="hover:!text-brand-600"><Trash2 className="h-4 w-4" /></Button>
                       </td>
                     </tr>
                   ))}
@@ -130,25 +130,25 @@ export default function Transactions() {
             </div>
 
             {/* Cards on mobile */}
-            <ul className="divide-y divide-slate-100 dark:divide-slate-800 md:hidden">
+            <ul className="divide-y divide-line/70 md:hidden">
               {data.items.map((t) => (
                 <li key={t._id} className="flex items-center gap-3 px-4 py-3">
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg text-lg" style={{ background: `${t.category?.color}1f` }}>{t.category?.icon}</span>
                   <button className="min-w-0 flex-1 text-left" onClick={() => editor.open(t)}>
                     <p className="truncate text-sm font-medium">{t.note || t.category?.name}</p>
-                    <p className="text-xs text-slate-500">{t.category?.name} · {shortDate(t.date)}</p>
+                    <p className="text-xs text-muted">{t.category?.name} · {shortDate(t.date)}</p>
                   </button>
                   <div className="text-right">
-                    <p className={`text-sm font-semibold tabular-nums ${t.type === "income" ? "text-brand-600" : "text-rose-600"}`}>{t.type === "income" ? "+" : "−"}{money(t.amount)}</p>
-                    <button onClick={() => remover.open(t)} className="text-xs text-slate-400 hover:text-rose-600">Delete</button>
+                    <p className={`text-sm font-medium tabular-nums ${t.type === "income" ? "text-pos-600" : "text-ink"}`}>{t.type === "income" ? "+" : "−"}{money(t.amount)}</p>
+                    <button onClick={() => remover.open(t)} className="text-xs text-slate-400 hover:text-brand-600">Delete</button>
                   </div>
                 </li>
               ))}
             </ul>
 
-            <div className="border-t border-slate-100 p-4 dark:border-slate-800">
+            <div className="border-t border-line/70 p-4">
               <Pagination page={data.page} pages={data.pages} onChange={setPage} />
-              {data.pages <= 1 && <p className="text-sm text-slate-500">{data.total} transaction{data.total === 1 ? "" : "s"}</p>}
+              {data.pages <= 1 && <p className="text-sm text-muted">{data.total} transaction{data.total === 1 ? "" : "s"}</p>}
             </div>
           </>
         )}

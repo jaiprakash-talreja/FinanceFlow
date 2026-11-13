@@ -59,13 +59,13 @@ export default function TransactionModal({ open, onClose, editing, categories, o
       </>}>
       <form id="tx-form" onSubmit={submit} className="grid gap-4 sm:grid-cols-2" noValidate>
         <div className="sm:col-span-2">
-          <span className="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">Type</span>
-          <div className="grid grid-cols-2 gap-1 rounded-lg bg-slate-100 p-1 dark:bg-slate-800">
+          <span className="mb-1.5 block text-[13px] font-medium text-muted">Type</span>
+          <div className="grid grid-cols-2 gap-1 rounded-clay bg-slate-100 p-1 shadow-[inset_0_1px_2px_rgb(20_19_15/0.06)] dark:bg-slate-800/70">
             {["expense", "income"].map((t) => (
               <button key={t} type="button" onClick={() => setType(t)}
-                className={`rounded-md py-1.5 text-sm font-semibold capitalize transition ${values.type === t
-                  ? t === "expense" ? "bg-white text-rose-600 shadow-sm dark:bg-slate-900" : "bg-white text-brand-600 shadow-sm dark:bg-slate-900"
-                  : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"}`}>
+                className={`rounded-[10px] py-2 text-sm font-medium capitalize transition duration-200 ease-soft ${values.type === t
+                  ? `bg-card shadow-clay-sm ${t === "income" ? "text-pos-600 dark:text-pos-400" : "text-ink"}`
+                  : "text-muted hover:text-ink"}`}>
                 {t}
               </button>
             ))}
