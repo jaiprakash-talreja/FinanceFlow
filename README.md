@@ -107,7 +107,7 @@ FinanceFlow/
 **Requirements:** Node.js 20+ and Git. MongoDB is optional (see option A).
 
 ```bash
-git clone https://github.com/<your-username>/FinanceFlow.git
+git clone https://github.com/jaiprakash-talreja/FinanceFlow.git
 cd FinanceFlow
 ```
 
