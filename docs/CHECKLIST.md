@@ -7,7 +7,7 @@
 
 Every item below was checked on the **live deployment** on 14 November 2026, unless marked "code". Demo logins: `demo@financeflow.dev` / `Demo@1234` (user) and `admin@financeflow.dev` / `Admin@1234` (admin).
 
-**Result: all 94 checklist points in sections 1 to 12 are done** (automatic deployment is live for the frontend; the backend's automatic deploy needs one GitHub secret, see section 10). **Final deliverables: 9 of 11 done**; the PPT is pending and the demo video is optional.
+**Result: all 94 checklist points in sections 1 to 12 are done.** **Final deliverables: 9 of 11 done**; the PPT is pending and the demo video is optional.
 
 ---
 
@@ -151,7 +151,7 @@ Every item below was checked on the **live deployment** on 14 November 2026, unl
 |---|---|---|
 | GitHub repository created | Done | https://github.com/jaiprakash-talreja/FinanceFlow (public) |
 | GitHub Actions workflow configured | Done | `.github/workflows/ci-cd.yml`: API tests, frontend tests and build, Docker builds, deploy |
-| Automatic deployment enabled | Done (frontend) | Every push to `main` redeploys the frontend on Vercel automatically. The workflow's deploy job also triggers Render once the `RENDER_DEPLOY_HOOK` secret is added; until then the backend is redeployed manually |
+| Automatic deployment enabled | Done | Every push to `main` redeploys the frontend on Vercel, and after all tests pass the workflow's Deploy job calls the Render deploy hook (`RENDER_DEPLOY_HOOK` secret) to redeploy the backend |
 | Build passes successfully | Done | All workflow runs green |
 | Deployment to Render/Vercel working | Done | Both services live and connected |
 

@@ -198,7 +198,7 @@ docker compose exec api node src/seed.js   # optional demo data
 3. **Docker**: builds both images
 4. **Deploy** (push to `main` only, after everything passes): calls the Render and Vercel deploy hooks
 
-Required repository secrets: `RENDER_DEPLOY_HOOK`, `VERCEL_DEPLOY_HOOK`. Optional repository variable: `VITE_API_URL`.
+Repository secret `RENDER_DEPLOY_HOOK` triggers the backend deploy on Render. The frontend deploys through Vercel's GitHub integration on every push to `main` (an optional `VERCEL_DEPLOY_HOOK` secret is also supported).
 
 ## Deployment
 
