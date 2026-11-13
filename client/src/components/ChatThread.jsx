@@ -58,7 +58,7 @@ export default function ChatThread({ messages, loading, conversationId, toUserId
     <div className="flex h-full min-h-0 flex-col">
       <div className="flex-1 space-y-3 overflow-y-auto p-4 sm:p-5">
         {loading && <div className="flex justify-center py-10"><Spinner className="h-6 w-6 text-brand-500" /></div>}
-        {!loading && messages.length === 0 && <p className="py-10 text-center text-sm text-muted">No messages yet. Say hello 👋</p>}
+        {!loading && messages.length === 0 && <p className="py-10 text-center text-sm text-muted">No messages yet. Say hello.</p>}
         {messages.map((m) => {
           const mine = String(m.sender?._id) === String(meId);
           return (

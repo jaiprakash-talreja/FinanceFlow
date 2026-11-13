@@ -73,7 +73,7 @@ export default function TransactionModal({ open, onClose, editing, categories, o
         </div>
         <Select label="Category" name="category" value={values.category} onChange={onChange} error={errors.category}>
           <option value="">Select…</option>
-          {options.map((c) => <option key={c._id} value={c._id}>{c.icon} {c.name}</option>)}
+          {options.map((c) => <option key={c._id} value={c._id}>{c.name}</option>)}
         </Select>
         <Input label="Amount (₹)" name="amount" type="number" inputMode="decimal" min="0" step="0.01" value={values.amount} onChange={onChange} error={errors.amount} />
         <Input label="Date" name="date" type="date" value={values.date} onChange={onChange} error={errors.date} />

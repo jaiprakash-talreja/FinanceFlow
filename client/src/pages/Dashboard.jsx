@@ -12,6 +12,7 @@ import TransactionModal from "../components/TransactionModal";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { compactMoney, money, monthLabel, shortDate } from "../lib/format";
+import CategoryIcon, { CategoryTile } from "../components/CategoryIcon";
 
 function TooltipBox({ active, payload, label }) {
   if (!active || !payload?.length) return null;
@@ -107,7 +108,7 @@ export default function Dashboard() {
                 {s.byCategory.slice(0, 6).map((c) => (
                   <li key={c.categoryId} className="flex items-center gap-2">
                     <span className="h-2.5 w-2.5 rounded-full" style={{ background: c.color }} />
-                    <span className="truncate">{c.icon} {c.name}</span>
+                    <span className="truncate">{c.name}</span>
                     <span className="ml-auto font-medium tabular-nums">{money(c.total)}</span>
                   </li>
                 ))}
@@ -124,7 +125,7 @@ export default function Dashboard() {
             <ul>
               {recent.data.items.map((t) => (
                 <li key={t._id} className="flex items-center gap-3 rounded-2xl px-3 py-3 transition hover:bg-slate-100/60 dark:hover:bg-slate-800/40">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl text-base" style={{ background: `${t.category?.color}22` }}>{t.category?.icon}</span>
+                  <CategoryTile category={t.category} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium">{t.note || t.category?.name}</p>
                     <p className="text-xs text-muted">{t.category?.name} · {shortDate(t.date)}</p>
@@ -147,7 +148,7 @@ export default function Dashboard() {
               {budgets.data.map((b) => (
                 <li key={b._id}>
                   <div className="mb-1.5 flex items-center justify-between text-sm">
-                    <span className="font-medium">{b.category?.icon} {b.category?.name}</span>
+                    <span className="inline-flex items-center gap-2 font-medium"><CategoryIcon icon={b.category?.icon} className="h-4 w-4 text-muted" />{b.category?.name}</span>
                     <span className="tabular-nums text-muted">{money(b.spent)} / {money(b.limit)}</span>
                   </div>
                   <ProgressBar value={b.spent} max={b.limit} />
