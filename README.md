@@ -215,6 +215,7 @@ After both are live, set `CLIENT_URL` on Render to the Vercel URL so CORS and We
 - [API reference](docs/API.md): every endpoint, status codes and Socket.IO events
 - [Database schema](docs/DATABASE.md): ER diagram, validation, indexes, relationships
 - [Postman collection](docs/FinanceFlow.postman_collection.json)
+- [Verified project checklist](docs/CHECKLIST.md)
 
 ## Screenshots
 
