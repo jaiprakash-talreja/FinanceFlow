@@ -58,7 +58,7 @@ async function seedUser(user, scale) {
     { user: user._id, category: by.Shopping._id, month, limit: 5000 },
     { user: user._id, category: by.Transport._id, month, limit: 3000 },
   ]);
-  await Notification.create({ user: user._id, kind: "system", title: "Welcome to FinanceFlow 👋", message: "Track expenses, set budgets and chat with support any time." });
+  await Notification.create({ user: user._id, kind: "system", title: "Welcome to FinanceFlow", message: "Track expenses, set budgets and chat with support any time." });
   return txs.length;
 }
 

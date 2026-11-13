@@ -14,6 +14,7 @@ import TransactionModal from "../components/TransactionModal";
 import { api } from "../lib/api";
 import { money, shortDate } from "../lib/format";
 import { useToast } from "../context/ToastContext";
+import { CategoryTile } from "../components/CategoryIcon";
 
 const initialFilters = { type: "", category: "", from: "", to: "", sort: "-date" };
 
@@ -78,7 +79,7 @@ export default function Transactions() {
             </Select>
             <Select label="Category" name="category" value={filters.category} onChange={setFilter}>
               <option value="">All</option>
-              {categories.data?.filter((c) => !filters.type || c.type === filters.type).map((c) => <option key={c._id} value={c._id}>{c.icon} {c.name}</option>)}
+              {categories.data?.filter((c) => !filters.type || c.type === filters.type).map((c) => <option key={c._id} value={c._id}>{c.name}</option>)}
             </Select>
             <Input label="From" name="from" type="date" value={filters.from} onChange={setFilter} />
             <Input label="To" name="to" type="date" value={filters.to} onChange={setFilter} />
@@ -113,7 +114,7 @@ export default function Transactions() {
                   {data.items.map((t) => (
                     <tr key={t._id} className="transition hover:bg-slate-100/60 dark:hover:bg-slate-800/40">
                       <td className="whitespace-nowrap px-5 py-3 text-muted">{shortDate(t.date)}</td>
-                      <td className="px-5 py-3"><span className="inline-flex items-center gap-2 font-medium"><span className="h-2 w-2 rounded-full" style={{ background: t.category?.color }} />{t.category?.icon} {t.category?.name}</span></td>
+                      <td className="px-5 py-3"><span className="inline-flex items-center gap-2 font-medium"><CategoryTile category={t.category} size="sm" />{t.category?.name}</span></td>
                       <td className="max-w-xs truncate px-5 py-3 text-muted">{t.note || "—"}</td>
                       <td className="px-5 py-3 uppercase text-muted">{t.paymentMethod}</td>
                       <td className={`whitespace-nowrap px-5 py-3 text-right font-medium tabular-nums ${t.type === "income" ? "text-pos-600 dark:text-pos-400" : "text-ink"}`}>
@@ -133,7 +134,7 @@ export default function Transactions() {
             <ul className="divide-y divide-line/70 md:hidden">
               {data.items.map((t) => (
                 <li key={t._id} className="flex items-center gap-3 px-4 py-3">
-                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg text-lg" style={{ background: `${t.category?.color}1f` }}>{t.category?.icon}</span>
+                  <CategoryTile category={t.category} size="lg" />
                   <button className="min-w-0 flex-1 text-left" onClick={() => editor.open(t)}>
                     <p className="truncate text-sm font-medium">{t.note || t.category?.name}</p>
                     <p className="text-xs text-muted">{t.category?.name} · {shortDate(t.date)}</p>

@@ -495,7 +495,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Books {{$randomInt}}\",\n  \"type\": \"expense\",\n  \"color\": \"#6366f1\",\n  \"icon\": \"📚\"\n}",
+              "raw": "{\n  \"name\": \"Books {{$randomInt}}\",\n  \"type\": \"expense\",\n  \"color\": \"#6366f1\",\n  \"icon\": \"book\"\n}",
               "options": {
                 "raw": {
                   "language": "json"

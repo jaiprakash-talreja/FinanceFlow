@@ -13,19 +13,20 @@ import { EmptyState, ErrorState, PageHeader } from "../components/ui/misc";
 import { api } from "../lib/api";
 import { rules } from "../lib/validators";
 import { useToast } from "../context/ToastContext";
+import CategoryIcon, { CATEGORY_ICONS, CategoryTile } from "../components/CategoryIcon";
 
 const COLORS = ["#ff5f2e", "#8a8577", "#4f8a63", "#6f9c8a", "#6b7fa3", "#5f9a9a", "#a87892", "#c46a5a", "#d9a441", "#a29d90"];
-const ICONS = ["🍔", "🏠", "🚌", "🛍️", "💡", "💊", "🎬", "📚", "✈️", "🎁", "💼", "💻", "📈", "🐶", "☕", "🏷️"];
+const ICONS = Object.keys(CATEGORY_ICONS);
 
 function CategoryModal({ open, onClose, editing, onSaved }) {
   const toast = useToast();
   const { values, setValues, errors, submitting, onChange, handleSubmit, reset } = useForm(
-    { name: "", type: "expense", color: COLORS[0], icon: "🏷️" },
+    { name: "", type: "expense", color: COLORS[0], icon: "tag" },
     { name: [rules.required("Name"), rules.maxLen(40)] }
   );
 
   useEffect(() => {
-    if (open) reset(editing ? { name: editing.name, type: editing.type, color: editing.color, icon: editing.icon } : { name: "", type: "expense", color: COLORS[0], icon: "🏷️" });
+    if (open) reset(editing ? { name: editing.name, type: editing.type, color: editing.color, icon: editing.icon } : { name: "", type: "expense", color: COLORS[0], icon: "tag" });
   }, [open, editing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submit = (e) =>
@@ -57,10 +58,10 @@ function CategoryModal({ open, onClose, editing, onSaved }) {
         </fieldset>
         <fieldset>
           <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">Icon</legend>
-          <div className="grid grid-cols-8 gap-1.5">
+          <div className="grid grid-cols-9 gap-1.5">
             {ICONS.map((i) => (
               <button key={i} type="button" onClick={() => setValues((v) => ({ ...v, icon: i }))}
-                className={`grid h-9 place-items-center rounded-lg text-lg transition hover:bg-slate-100 dark:hover:bg-slate-800 ${values.icon === i ? "bg-brand-50 ring-2 ring-brand-500 dark:bg-brand-500/10" : ""}`}>{i}</button>
+                aria-label={`Icon ${i}`} className={`grid h-9 place-items-center rounded-lg text-muted transition hover:bg-slate-100 hover:text-ink dark:hover:bg-slate-800 ${values.icon === i ? "bg-brand-50 text-brand-600 ring-2 ring-brand-500 dark:bg-brand-500/10" : ""}`}><CategoryIcon icon={i} /></button>
             ))}
           </div>
         </fieldset>
@@ -76,7 +77,7 @@ function CategoryList({ title, items, onEdit, onDelete }) {
         <ul className="divide-y divide-line/70">
           {items.map((c) => (
             <li key={c._id} className="flex items-center gap-3 px-5 py-3">
-              <span className="grid h-9 w-9 place-items-center rounded-lg text-base" style={{ background: `${c.color}22` }}>{c.icon}</span>
+              <CategoryTile category={c} />
               <span className="flex-1 font-medium">{c.name}</span>
               <span className="h-3 w-3 rounded-full" style={{ background: c.color }} />
               <Button variant="ghost" size="icon" onClick={() => onEdit(c)} aria-label={`Edit ${c.name}`}><Pencil className="h-4 w-4" /></Button>

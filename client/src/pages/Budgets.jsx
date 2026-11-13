@@ -14,6 +14,7 @@ import { api } from "../lib/api";
 import { rules } from "../lib/validators";
 import { currentMonth, money, monthLabel } from "../lib/format";
 import { useToast } from "../context/ToastContext";
+import { CategoryTile } from "../components/CategoryIcon";
 
 function BudgetModal({ open, onClose, editing, month, categories, onSaved }) {
   const toast = useToast();
@@ -41,7 +42,7 @@ function BudgetModal({ open, onClose, editing, month, categories, onSaved }) {
       <form id="budget-form" onSubmit={submit} className="space-y-4" noValidate>
         <Select label="Category" name="category" value={values.category} onChange={onChange} error={errors.category} disabled={Boolean(editing)}>
           <option value="">Select…</option>
-          {categories.map((c) => <option key={c._id} value={c._id}>{c.icon} {c.name}</option>)}
+          {categories.map((c) => <option key={c._id} value={c._id}>{c.name}</option>)}
         </Select>
         <Input label="Monthly limit (₹)" name="limit" type="number" min="1" value={values.limit} onChange={onChange} error={errors.limit} />
       </form>
@@ -96,7 +97,7 @@ export default function Budgets() {
                 <div key={b._id} className="surface group p-5 transition duration-300 ease-soft hover:-translate-y-0.5 hover:shadow-lift sm:p-6">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="grid h-10 w-10 place-items-center rounded-xl text-lg" style={{ background: `${b.category?.color}1f` }}>{b.category?.icon}</span>
+                      <CategoryTile category={b.category} size="lg" />
                       <div>
                         <p className="font-medium">{b.category?.name}</p>
                         <p className="text-xs text-muted">Limit {money(b.limit)}</p>
