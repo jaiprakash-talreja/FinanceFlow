@@ -6,8 +6,8 @@ Built with **React, Tailwind CSS, Node.js, Express, MongoDB, Socket.IO and Docke
 
 | | |
 |---|---|
-| **Live app** | _add your Vercel URL here_ |
-| **Live API** | _add your Render URL here_ (health check: `/api/health`) |
+| **Live app** | https://finance-flow-kappa-six.vercel.app |
+| **Live API** | https://financeflow-api-6k9c.onrender.com (health check: [`/api/health`](https://financeflow-api-6k9c.onrender.com/api/health)) |
 | **Author** | Jaiprakash Talreja · Roll No. 54 · D15A, Batch C |
 
 ![Dashboard](docs/screenshots/dashboard-light.png)
