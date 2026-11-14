@@ -6,8 +6,9 @@ Built with **React, Tailwind CSS, Node.js, Express, MongoDB, Socket.IO and Docke
 
 | | |
 |---|---|
-| **Live app** | https://finance-flow-kappa-six.vercel.app |
-| **Live API** | https://financeflow-api-6k9c.onrender.com (health check: [`/api/health`](https://financeflow-api-6k9c.onrender.com/api/health)) |
+| **Live app** | https://finance-flow-kappa-six.vercel.app (Vercel CDN) |
+| **Live app (Docker)** | https://financeflow-web.onrender.com (nginx container on Render) |
+| **Live API (Docker)** | https://financeflow-api-6k9c.onrender.com (health check: [`/api/health`](https://financeflow-api-6k9c.onrender.com/api/health)) |
 | **Author** | Jaiprakash Talreja · Roll No. 54 · D15A, Batch C |
 
 ![Dashboard](docs/screenshots/dashboard-light.png)
@@ -44,7 +45,7 @@ Built with **React, Tailwind CSS, Node.js, Express, MongoDB, Socket.IO and Docke
 | Auth | JWT (jsonwebtoken) + bcrypt password hashing, role-based access control |
 | Real-time | Socket.IO 4 |
 | Testing | Jest + Supertest + mongodb-memory-server (API), Vitest + Testing Library (UI), Postman/Newman |
-| DevOps | Docker, Docker Compose, GitHub Actions, Render (API), Vercel (web) |
+| DevOps | Docker, Docker Compose, GitHub Actions, Render (API and web containers), Vercel (web CDN) |
 
 ## Architecture
 
@@ -205,10 +206,11 @@ Repository secret `RENDER_DEPLOY_HOOK` triggers the backend deploy on Render. Th
 | Part | Platform | Settings |
 |---|---|---|
 | Database | MongoDB Atlas (free M0) | Allow access from `0.0.0.0/0`, copy the connection string |
-| API | Render web service | Root `server`, build `npm ci --omit=dev`, start `node src/server.js`, env vars from the table above, auto-deploy off |
-| Web | Vercel | Root `client`, framework Vite, env `VITE_API_URL=<Render URL>` |
+| API | Render web service, runtime **Docker** | Root `server`, built from `server/Dockerfile`, env vars from the table above, auto-deploy off (deployed by CI) |
+| Web (CDN) | Vercel | Root `client`, framework Vite, env `VITE_API_URL=<Render API URL>` |
+| Web (Docker) | Render web service, runtime **Docker** | Root `client`, built from `client/Dockerfile` (Node build stage, nginx runtime), env `VITE_API_URL=<Render API URL>` and `PORT=80` |
 
-After both are live, set `CLIENT_URL` on Render to the Vercel URL so CORS and WebSockets accept it.
+After the frontends are live, set `CLIENT_URL` on the API to a comma-separated list of their URLs so CORS and WebSockets accept them.
 
 ## Documentation
 

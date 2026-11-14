@@ -95,7 +95,7 @@ Every item below was checked on the **live deployment** on 14 November 2026, unl
 | Error handling middleware | Done | Invalid id, unknown route and server errors all return clean JSON, never stack traces |
 | Environment variables (.env) | Done | Secrets kept in `.env` locally and in Render settings; `.env` is git-ignored |
 | Password hashing (bcrypt) | Done | bcrypt with cost 12 (`models/User.js`) |
-| Sensitive data protected | Done | `/me` response contains no password or token version; helmet security headers present; CORS allows only the Vercel site; login rate-limited to 20 attempts per 15 minutes |
+| Sensitive data protected | Done | `/me` response contains no password or token version; helmet security headers present; CORS allows only the two deployed frontends; login rate-limited to 20 attempts per 15 minutes |
 | Proper logging | Done | Request logging with morgan and timestamped app logs (visible in Render logs) |
 
 ## 7. Authentication & Authorization
@@ -139,11 +139,11 @@ Every item below was checked on the **live deployment** on 14 November 2026, unl
 
 | Item | Status | Evidence |
 |---|---|---|
-| Frontend deployed | Done | Vercel: https://finance-flow-kappa-six.vercel.app |
-| Backend deployed | Done | Render: https://financeflow-api-6k9c.onrender.com |
+| Frontend deployed | Done | Vercel: https://finance-flow-kappa-six.vercel.app, and as a Docker (nginx) container on Render: https://financeflow-web.onrender.com |
+| Backend deployed | Done | Docker container on Render: https://financeflow-api-6k9c.onrender.com |
 | Database connected | Done | MongoDB Atlas, used by the live backend |
 | Environment variables configured | Done | Render (database, JWT, CORS) and Vercel (API URL) |
-| Production build successful | Done | Vercel production build and Render Docker build both live |
+| Production build successful | Done | Vercel production build and both Render Docker builds (API and web) live |
 
 ### CI/CD
 
